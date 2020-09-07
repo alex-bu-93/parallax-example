@@ -1,0 +1,31 @@
+$white:     #fff;
+$gray-100:  #f0f3f5;
+$gray-200:  #c8ced3;
+$gray-300:  #a4b7c1;
+$gray-400:  #869fac;
+$gray-500:  #678898;
+$gray-600:  #73818f;
+$gray-700:  #3e515b;
+$gray-800:  #29363d;
+$gray-900:  #151b1e;
+$black:     #000 !default;
+
+$blue:      #20a8d8;
+$indigo:    #6610f2 !default;
+$purple:    #6f42c1 !default;
+$pink:      #e83e8c !default;
+$red:       #f86c6b;
+$orange:    #f8cb00;
+$yellow:    #ffc107 !default;
+$green:     #3ec182;
+$teal:      #20c997 !default;
+$cyan:      #63c2de;
+
+$primary:   $green !default;
+$secondary: $gray-600 !default;
+$success:   $green !default;
+$info:      $cyan !default;
+$warning:   $yellow !default;
+$danger:    $red !default;
+$light:     $gray-100 !default;
+$dark:      $gray-800 !default;

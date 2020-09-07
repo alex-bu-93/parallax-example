@@ -1,0 +1,7 @@
+* { font-family: Helvetica, Arial, sans-serif; }
+@font-face {
+  font-family: 'montserat-bold-font';
+  src: url(src/Montserrat-Bold.ttf) format('embedded-opentype'),
+  url(src/Montserrat-Bold.ttf) format('opentype');
+}
+h1, h2, h3, h4 { font-family: 'montserat-bold-font', 'arial', sans-serif; }
