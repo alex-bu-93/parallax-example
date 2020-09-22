@@ -1,15 +1,24 @@
-import { BrowserModule }     from '@angular/platform-browser';
-import { NgModule }          from '@angular/core';
-import { NzButtonModule }    from 'ng-zorro-antd/button';
-import { AngularTiltModule } from 'angular-tilt';
-import { AppComponent }      from './app.component';
+import { BrowserModule }       from '@angular/platform-browser';
+import { NgModule }            from '@angular/core';
+import { ReactiveInputModule } from '@widgets/reactive/reactive-fields/reactive-input';
+import { NzButtonModule }      from 'ng-zorro-antd/button';
+import { NzTabsModule }        from 'ng-zorro-antd/tabs';
+import { NzCardModule }        from 'ng-zorro-antd/card';
+import { AngularTiltModule }   from 'angular-tilt';
+import { AppComponent }        from './app.component';
 
-const ANT_DESIGN_MODULES = [NzButtonModule];
+const REACTIVE_FIELDS_MODULES = [ReactiveInputModule];
+const ANT_DESIGN_MODULES = [
+  NzButtonModule,
+  NzTabsModule,
+  NzCardModule
+];
 
 @NgModule({
   imports: [
     BrowserModule,
     AngularTiltModule,
+    REACTIVE_FIELDS_MODULES,
     ANT_DESIGN_MODULES
   ],
   declarations: [AppComponent],

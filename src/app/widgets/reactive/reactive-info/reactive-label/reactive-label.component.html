@@ -1,0 +1,9 @@
+<label [for]="fieldId" class="text-muted text-nowrap font-weight-bold mb-0">
+  <span style="font-size: 12px">{{label}}</span>
+  <span *ngIf="hasRequiredIndicator" class="text-danger ml-1">*</span>
+  <i *ngIf="tooltip" nz-tooltip
+     nz-icon nzType="question-circle"
+     class="ml-1 cursor-help"
+     [nzTooltipTitle]="tooltip">
+  </i>
+</label>
