@@ -8,14 +8,16 @@
   </button>
 </div>
 <div *ngIf="!selectedIndex"
-     style="position: fixed; top: 10%; left: 6%"
+     style="position: fixed; left: 15%"
      class="animated fadeIn">
-  <h1 style="font-size: 88px; margin-top: 80px">
-    Algo<span class="text-primary font-weight-bold">/</span>Platform
-  </h1>
-  <p style="font-size: 24px; width: 520px">
-    High-fidelity platform enable your team to collaborate better, ship faster, and launch superior products
-  </p>
+  <div class="phrase-appear">
+    <div class="phrase-opacity">
+      <h1 style="font-size: 60px; margin-top: 30vh">
+        Algo<span class="text-primary font-weight-bold">/</span>Platform
+      </h1>
+      <p style="font-size: 24px; width: 520px">Set. Start. Rule the market</p>
+    </div>
+  </div>
 </div>
 <nz-tabset style="top: 180px"
            class="position-absolute w-100"
@@ -57,82 +59,82 @@
                [(nzSelectedIndex)]="selectedIndex">
       <nz-tab>
         <div class="position-relative">
-          <div style="position: absolute; top: 100px; right: 40px">
+          <div style="position: absolute; top: 100px; right: 15%">
             <img alt=""
-                 width="23"
+                 width="20"
                  class="mr-2"
                  src="../assets/candle-1.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: 50px"
                  class="mr-2"
                  src="../assets/candle-2.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: 220px"
                  class="mr-2"
                  src="../assets/candle-3.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: 150px"
                  class="mr-2"
                  src="../assets/candle-4.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: 100px"
                  class="mr-2"
                  src="../assets/candle-5.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: 230px"
                  class="mr-2"
                  src="../assets/candle-6.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: 250px"
                  class="mr-2"
                  src="../assets/candle-7.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: 200px"
                  class="mr-2"
                  src="../assets/candle-8.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: -50px"
                  class="mr-2"
                  src="../assets/candle-9.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: -50px"
                  class="mr-2"
                  src="../assets/candle-10.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: -200px"
                  class="mr-2"
                  src="../assets/candle-11.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  class="mr-2"
                  src="../assets/candle-12.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: 100px"
                  class="mr-2"
                  src="../assets/candle-13.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: -50px"
                  class="mr-2"
                  src="../assets/candle-14.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: 50px"
                  class="mr-2"
                  src="../assets/candle-15.svg"/>
             <img alt=""
-                 width="23"
+                 width="20"
                  style="margin-top: -240px"
                  src="../assets/candle-16.svg"/>
           </div>
@@ -142,66 +144,92 @@
     </nz-tabset>
   </div>
   <div data-depth="0.5">
-    <div style="position: relative; width: 100vw; height: 100vh">
-      <img alt=""
-           style="position: absolute; bottom: 1%; width: 120%; left: -10%"
-           src="../assets/wave-back.svg"/>
-    </div>
+    <ng-container *ngIf="isTrue200Delay">
+      <div class="periodic-hesitation"></div>
+      <div class="bottom-top">
+        <div style="position: relative; width: 100vw; height: 100vh">
+          <img alt="wave-back"
+               style="position: absolute; bottom: 1%; width: 120%; left: -10%"
+               src="../assets/wave-back.svg"/>
+        </div>
+      </div>
+    </ng-container>
   </div>
   <div data-depth="0.6">
+
+
     <div style="position: relative; width: 100vw; height: 100vh">
-      <img alt=""
-           style="position: absolute; bottom: 0; width: 120%; left: -10%"
-           src="../assets/wave-front.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 20%; width: 3%; left: 6%"
-           src="../assets/value-1.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 10%; width: 1%; left: 13%"
-           src="../assets/front-2.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 17%; width: 1%; left: 38%"
-           src="../assets/front-3.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 10%; width: 4%; left: 62%"
-           src="../assets/value-2.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 15%; width: 1%; left: 68%"
-           src="../assets/front-4.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 4%; width: 1%; left: -6%"
-           src="../assets/front-1.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 30%; width: 3%; left: 84%"
-           src="../assets/value-3.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 0; width: 3%; left: 2%"
-           src="../assets/value-4.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 20%; width: 3%; left: 24%"
-           src="../assets/value-5.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 0; width: 2.5%; left: 40%"
-           src="../assets/value-6.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 3%; width: 3%; left: 76%"
-           src="../assets/value-7.svg"/>
+      <ng-container *ngIf="isTrue400Delay">
+        <div class="periodic-hesitation"></div>
+        <div class="bottom-top">
+          <img alt=""
+               style="position: absolute; bottom: 0; width: 120%; left: -10%"
+               src="../assets/wave-front.svg"/>
+        </div>
+      </ng-container>
     </div>
+
   </div>
   <div data-depth="0.7">
     <div style="position: relative; width: 100vw; height: 100vh">
-      <img alt=""
-           style="position: absolute; bottom: 0; width: 104%; left: -8%"
-           src="../assets/wave-line.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 1%; width: 4%; left: 17%"
-           src="../assets/mini-earth-1.svg"/>
-      <img alt=""
-           style="position: absolute; bottom: 15%; width: 6%; left: 53%"
-           src="../assets/mini-earth-2.svg"/>
+      <ng-container *ngIf="isTrue900Delay">
+        <div class="bottom-top">
+          <img alt=""
+               style="position: absolute; bottom: 20%; width: 3%; left: 6%"
+               src="../assets/value-1.svg"/>
+          <img alt=""
+               style="position: absolute; bottom: 10%; width: 1%; left: 13%"
+               src="../assets/front-2.svg"/>
+          <img alt=""
+               style="position: absolute; bottom: 17%; width: 1%; left: 38%"
+               src="../assets/front-3.svg"/>
+          <img alt=""
+               style="position: absolute; bottom: 10%; width: 4%; left: 62%"
+               src="../assets/value-2.svg"/>
+          <img alt=""
+               style="position: absolute; bottom: 15%; width: 1%; left: 68%"
+               src="../assets/front-4.svg"/>
+          <img alt=""
+               style="position: absolute; bottom: 4%; width: 1%; left: -6%"
+               src="../assets/front-1.svg"/>
+          <img alt=""
+               style="position: absolute; bottom: 30%; width: 3%; left: 84%"
+               src="../assets/value-3.svg"/>
+          <img alt=""
+               style="position: absolute; bottom: 0; width: 3%; left: 2%"
+               src="../assets/value-4.svg"/>
+          <img alt=""
+               style="position: absolute; bottom: 20%; width: 3%; left: 24%"
+               src="../assets/value-5.svg"/>
+          <img alt=""
+               style="position: absolute; bottom: 0; width: 2.5%; left: 40%"
+               src="../assets/value-6.svg"/>
+          <img alt=""
+               style="position: absolute; bottom: 3%; width: 3%; left: 76%"
+               src="../assets/value-7.svg"/>
+        </div>
+      </ng-container>
     </div>
   </div>
   <div data-depth="0.8">
+    <ng-container *ngIf="isTrue300Delay">
+      <div class="periodic-hesitation"></div>
+      <div class="bottom-top">
+        <div style="position: relative; width: 100vw; height: 100vh">
+          <img alt=""
+               style="position: absolute; bottom: 0; width: 104%; left: -8%"
+               src="../assets/wave-line.svg"/>
+          <img alt=""
+               style="position: absolute; bottom: 1%; width: 4%; left: 17%"
+               src="../assets/mini-earth-1.svg"/>
+          <img alt=""
+               style="position: absolute; bottom: 15%; width: 6%; left: 53%"
+               src="../assets/mini-earth-2.svg"/>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div data-depth="0.9">
     <div style="position: relative; width: 100vw; height: 100vh">
       <img alt=""
            style="position: absolute; bottom: -7%; width: 24%; left: 87%"
@@ -209,4 +237,3 @@
     </div>
   </div>
 </div>
-
