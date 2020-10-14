@@ -15,7 +15,10 @@
     "lib": ["es2018", "dom"],
     "paths": {
       "@widgets/*": ["src/app/widgets/*"],
-      "@constants/*": ["src/app/constants/*"]
+      "@constants/*": ["src/app/constants/*"],
+      "@environments/*": ["src/environments/*"],
+      "@interceptors/*": ["src/app/interceptors/*"],
+      "@pipes/*": ["src/app/pipes/*"]
     }
   },
   "angularCompilerOptions": {
