@@ -73,7 +73,7 @@
         Set. Start. Rule the market
       </p>
     </div>
-    <div style="width: 395px" class="position-relative">
+    <div style="width: 395px" class="position-relative" [@fadeInUp]="isSloganRendered">
       <div *ngFor="let candle of candles let index = index"
            class="position-absolute"
            [ngClass]="{'width-compensation': !candle.isHover}"

@@ -13,7 +13,10 @@
   -webkit-animation: in 1s;
   transform: translateY(10px);
 }
-.candle:hover { -webkit-animation: out 1s }
+.candle:hover {
+  -webkit-animation: out 1s;
+  transform: translateY(0px);
+}
 
 @-webkit-keyframes in {
   from   { -webkit-transform: translateY(0px) }

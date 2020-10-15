@@ -47,7 +47,7 @@ const BOTTOM_ITEMS = [
   styleUrls: ['./app.component.scss'],
   animations: [
     bounceInUpAnimation(),
-    fadeInUpAnimation({duration: 800, translate: '30px'}),
+    fadeInUpAnimation({duration: 1200, translate: '30px'}),
     fadeOutUpAnimation({duration: 800, translate: '30px'}),
     rotateInUpLeftAnimation({degrees: 200})
   ]
@@ -88,7 +88,7 @@ export class AppComponent implements AfterViewInit {
       setTimeout(() => { this.isBottomLogoRendered = true; this.cdr.markForCheck(); }, 400);
     }, 600);
     setTimeout(() => this.candles.forEach((candle, index) =>
-      setTimeout(() => { candle.isRendered = true; this.cdr.markForCheck(); }, index * 50)
+      setTimeout(() => { candle.isRendered = true; this.cdr.markForCheck(); }, index * 20)
     ), 200);
     setTimeout(() => { this.isHeaderRendered = true; this.cdr.markForCheck(); }, 1000);
     setTimeout(() => this.bottomItems.forEach(item =>
