@@ -1,65 +1,54 @@
 <div id="scene">
   <div data-depth="0.5">
-    <ng-container *ngIf="isTrue200Delay">
+    <ng-container *ngIf="is1WaveRendered">
       <div class="periodic-hesitation"></div>
       <div class="bottom-top">
         <div style="position: relative; width: 100vw; height: 100vh">
           <img alt="wave-back"
-               style="position: absolute; bottom: -50px; width: 120%; left: -10%"
+               style="position: absolute; bottom: -70px; width: 120%; left: -10%"
                src="../assets/wave-back.svg"/>
         </div>
       </div>
     </ng-container>
   </div>
   <div data-depth="0.6">
-    <div *ngIf="isTrue400Delay" style="position: relative; width: 100vw; height: 100vh">
+    <div *ngIf="is3waveRendered" style="position: relative; width: 100vw; height: 100vh">
       <div class="periodic-hesitation"></div>
       <div class="bottom-top">
         <img alt=""
-             style="position: absolute; bottom: -50px; width: 120%; left: -10%"
+             style="position: absolute; bottom: -70px; width: 120%; left: -10%"
              src="../assets/wave-front.svg"/>
       </div>
     </div>
   </div>
   <div data-depth="0.7">
-    <div style="position: relative; width: 100vw; height: 100vh">
-      <img *ngFor="let item of bottomItems"
-           class="position-absolute"
-           [ngClass]="{'d-none': !item.isRendered}"
-           [@bounceInUp]="item.isRendered"
-           [src]="'../assets/' + item.type + '.svg'"
-           [alt]="item.type"
-           [ngStyle]="{'bottom': item.bottom, left: item.left}"/>
+    <div style="position: relative; width: 100vw; height: 100vh" class="d-flex">
+      <div style="height: 50%" class="mt-auto position-relative w-100">
+          <img *ngFor="let item of bottomItems"
+               class="position-absolute"
+               width="50"
+               [ngClass]="{'d-none': !item.isRendered}"
+               [@bounceInUp]="item.isRendered"
+               [src]="'../assets/bottom-items/' + item.type + '.png'"
+               [alt]="item.type"
+               [ngStyle]="{'bottom': item.bottom, left: item.left}"/>
+      </div>
     </div>
   </div>
   <div data-depth="0.8">
-    <ng-container *ngIf="isTrue300Delay">
+    <ng-container *ngIf="is2WaveRendered">
       <div class="periodic-hesitation"></div>
       <div class="bottom-top">
         <div style="position: relative; width: 100vw; height: 100vh">
-          <img alt=""
-               style="position: absolute; bottom: 0; width: 104%; left: -8%"
+          <img alt="wave-line"
+               style="position: absolute; bottom: -70px; left: -10%; width: 110%"
                src="../assets/wave-line.svg"/>
-          <img alt=""
-               style="position: absolute; bottom: 1%; width: 4%; left: 17%"
-               src="../assets/mini-earth-1.svg"/>
-          <img alt=""
-               style="position: absolute; bottom: 15%; width: 6%; left: 53%"
-               src="../assets/mini-earth-2.svg"/>
         </div>
       </div>
     </ng-container>
   </div>
-<!--  <div data-depth="0.9">-->
-<!--          <div style="height: 100vh; width: 100vw">-->
-<!--            <img alt="logo-right"-->
-<!--                 src="../assets/logo-right.svg"-->
-<!--                 width="300px"-->
-<!--                 style="right: -100px; bottom: -200px"-->
-<!--                 class="position-absolute"/>-->
-<!--          </div>-->
-<!--  </div>-->
 </div>
+
 
 <div *ngIf="isHeaderRendered"
      style="top: 20px"
@@ -75,8 +64,8 @@
   <div *ngSwitchCase="tabs.Welcome"
        class="d-flex justify-content-around"
        [@fadeOutUp]="isSwitchingTab">
-    <div [ngClass]="{'d-none': !isPhraseRendered}"
-         [@fadeInUp]="isPhraseRendered">
+    <div [ngClass]="{'d-none': !isSloganRendered}"
+         [@fadeInUp]="isSloganRendered">
       <h1 style="font-size: 66px">
         Algo<span class="text-primary font-weight-bold">/</span>Platform
       </h1>
@@ -87,12 +76,14 @@
     <div style="width: 395px" class="position-relative">
       <div *ngFor="let candle of candles let index = index"
            class="position-absolute"
-           [ngStyle]="{'top': candle.top, left: index * 25 + 'px'}">
+           [ngClass]="{'width-compensation': !candle.isHover}"
+           [ngStyle]="{'top': candle.top, left: index * 25 + 'px'}"
+           (mouseenter)="candle.isHover = true"
+           (mouseleave)="candle.isHover = false">
         <img *ngIf="candle.isRendered"
-             class="animated fadeIn"
-             [width]="candle.width"
-             [src]="'../assets/candle-' + (index + 1) + '.svg'"
-             [alt]="'candle_' + index"/>
+             class="animated fadeIn candle"
+             [alt]="'candle_' + index"
+             [src]="'../assets/candles/candle ' + (index + 1) + (candle.isHover ? ' active' : '') + '.png'"/>
       </div>
     </div>
   </div>
@@ -144,7 +135,13 @@
     </ng-template>
   </div>
 </div>
-
+<img alt="logo-right"
+     src="../assets/logo-right.svg"
+     width="400"
+     style="bottom: -150px; right: -150px"
+     class="position-fixed"
+     [ngClass]="{'d-none': !isBottomLogoRendered}"
+     [@rotateInUpLeft]="isBottomLogoRendered"/>
 
 <ng-template #noInfoTmp>
   <p class="text-center">No data to display</p>

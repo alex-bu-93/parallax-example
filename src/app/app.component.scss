@@ -9,5 +9,26 @@
   animation-delay: 0.5s;
 }
 
+.candle {
+  -webkit-animation: in 1s;
+  transform: translateY(10px);
+}
+.candle:hover { -webkit-animation: out 1s }
+
+@-webkit-keyframes in {
+  from   { -webkit-transform: translateY(0px) }
+  to { -webkit-transform: translateY(10px) }
+}
+
+@-webkit-keyframes out {
+  0%   { -webkit-transform: translateY(10px) }
+  100% { -webkit-transform: translateY(0px) }
+}
+
+.width-compensation {
+  width: 60px;
+  display: flex;
+  justify-content: center;
+}
 @keyframes toTop { from { margin-top: 100vh } to { margin-top: 0 } }
 @keyframes periodic { from { margin-top: 0 } to { margin-top: 120px } }

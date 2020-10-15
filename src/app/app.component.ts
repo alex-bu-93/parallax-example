@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators }                                   from '@angular/forms';
-import {bounceInUpAnimation, fadeInUpAnimation, fadeOutUpAnimation} from 'angular-animations';
+import {bounceInUpAnimation, fadeInUpAnimation, fadeOutUpAnimation, rotateInUpLeftAnimation} from 'angular-animations';
 import Parallax                                                                 from 'parallax-js';
 import { of }                                                                   from 'rxjs';
 import { tap }                                                                  from 'rxjs/operators';
@@ -31,17 +31,13 @@ const CANDLES = [
   {top: '-100px', width: 20, isRendered: false}
 ];
 const BOTTOM_ITEMS = [
-  {type: 'value-1', bottom: '20%', left: '6%', width: '', isRendered: false, timeout: 300},
-  {type: 'front-2', bottom: '10%', left: '13%', width: '', isRendered: false, timeout: 400},
-  {type: 'front-3', bottom: '17%', left: '38%', width: '', isRendered: false, timeout: 450},
-  {type: 'value-2', bottom: '10%', left: '62%', width: '', isRendered: false, timeout: 400},
-  {type: 'front-4', bottom: '15%', left: '68%', width: '', isRendered: false, timeout: 200},
-  {type: 'front-1', bottom: '4%', left: '6%', width: '', isRendered: false, timeout: 150},
-  {type: 'value-3', bottom: '30%', left: '84%', width: '', isRendered: false, timeout: 700},
-  {type: 'value-4', bottom: '5%', left: '2%', width: '', isRendered: false, timeout: 500},
-  {type: 'value-5', bottom: '20%', left: '24%', width: '', isRendered: false, timeout: 300},
-  {type: 'value-6', bottom: '8%', left: '40%', width: '', isRendered: false, timeout: 200},
-  {type: 'value-7', bottom: '12%', left: '76%', width: '', isRendered: false, timeout: 150}
+  {type: 'i-euro', bottom: '15%', left: '10%', isRendered: false, timeout: 300},
+  {type: 'pound', bottom: '30%', left: '23%', isRendered: false, timeout: 400},
+  {type: 'sbet salut', bottom: '50%', left: '35%', isRendered: false, timeout: 450},
+  {type: 'currency', bottom: '5%', left: '40%', isRendered: false, timeout: 400},
+  {type: 'yuan', bottom: '5%', left: '65%', isRendered: false, timeout: 200},
+  {type: 'dollar', bottom: '1%', left: '80%', isRendered: false, timeout: 150},
+  {type: 'ruble', bottom: '55%', left: '80%', isRendered: false, timeout: 700}
 ];
 
 @Component({
@@ -52,7 +48,8 @@ const BOTTOM_ITEMS = [
   animations: [
     bounceInUpAnimation(),
     fadeInUpAnimation({duration: 800, translate: '30px'}),
-    fadeOutUpAnimation({duration: 800, translate: '30px'})
+    fadeOutUpAnimation({duration: 800, translate: '30px'}),
+    rotateInUpLeftAnimation({degrees: 200})
   ]
 })
 export class AppComponent implements AfterViewInit {
@@ -71,24 +68,28 @@ export class AppComponent implements AfterViewInit {
   candles = CANDLES;
   bottomItems = BOTTOM_ITEMS;
 
-  isPhraseRendered = false;
   isSwitchingTab = false;
-  isTrue200Delay: boolean;
-  isTrue300Delay: boolean;
-  isTrue400Delay: boolean;
   isHeaderRendered: boolean;
+  isSloganRendered = false;
+  is1WaveRendered: boolean;
+  is2WaveRendered: boolean;
+  is3waveRendered: boolean;
+  isBottomLogoRendered = false;
 
   constructor(
     private appService: AppService,
     private cdr: ChangeDetectorRef
   ) {
-    setTimeout(() => { this.isPhraseRendered = true; this.cdr.markForCheck(); }, 100);
+    setTimeout(() => { this.isSloganRendered = true; this.cdr.markForCheck(); }, 100);
+    setTimeout(() => {
+      setTimeout(() => { this.is1WaveRendered = true; this.cdr.markForCheck(); }, 200);
+      setTimeout(() => { this.is2WaveRendered = true; this.cdr.markForCheck(); }, 300);
+      setTimeout(() => { this.is3waveRendered = true; this.cdr.markForCheck(); }, 400);
+      setTimeout(() => { this.isBottomLogoRendered = true; this.cdr.markForCheck(); }, 400);
+    }, 600);
     setTimeout(() => this.candles.forEach((candle, index) =>
       setTimeout(() => { candle.isRendered = true; this.cdr.markForCheck(); }, index * 50)
     ), 200);
-    setTimeout(() => [200, 300, 400].forEach(delay =>
-      setTimeout(() => { this[`isTrue${delay}Delay`] = true; this.cdr.markForCheck(); }, delay)
-    ), 600);
     setTimeout(() => { this.isHeaderRendered = true; this.cdr.markForCheck(); }, 1000);
     setTimeout(() => this.bottomItems.forEach(item =>
       setTimeout(() => { item.isRendered = true; this.cdr.markForCheck(); }, item.timeout)
@@ -96,8 +97,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const scene = document.getElementById('scene');
-    const parallaxInstance = new Parallax(scene);
+    const parallaxInstance = new Parallax(document.getElementById('scene'));
   }
 
   onSubmit() {
@@ -122,16 +122,18 @@ export class AppComponent implements AfterViewInit {
           }, 800);
         break;
       case Tabs.Login:
-        this.isPhraseRendered = false;
+        this.isSloganRendered = false;
         this.selectedIndex = Tabs.Welcome;
+        this.login$ = of({});
         setTimeout(() => {
-          this.isPhraseRendered = true;
+          this.isSloganRendered = true;
           this.cdr.markForCheck();
         }, 0);
         break;
       case Tabs.Scopes:
         this.appService.logout();
         this.selectedIndex = Tabs.Login;
+        this.login$ = of({});
         break;
     }
   }
