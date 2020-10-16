@@ -76,14 +76,13 @@
     <div style="width: 395px" class="position-relative" [@fadeInUp]="isSloganRendered">
       <div *ngFor="let candle of candles let index = index"
            class="position-absolute"
-           [ngClass]="{'width-compensation': !candle.isHover}"
            [ngStyle]="{'top': candle.top, left: index * 25 + 'px'}"
            (mouseenter)="candle.isHover = true"
            (mouseleave)="candle.isHover = false">
         <img *ngIf="candle.isRendered"
              class="animated fadeIn candle"
              [alt]="'candle_' + index"
-             [src]="'../assets/candles/candle ' + (index + 1) + (candle.isHover ? ' active' : '') + '.png'"/>
+             [src]="'../assets/candles/candle ' + (index + 1) + (candle.isHover ? ' active' : '') + '.svg'"/>
       </div>
     </div>
   </div>
@@ -137,8 +136,8 @@
 </div>
 <img alt="logo-right"
      src="../assets/logo-right.svg"
-     width="400"
-     style="bottom: -150px; right: -150px"
+     width="360"
+     style="bottom: -180px; right: -180px"
      class="position-fixed"
      [ngClass]="{'d-none': !isBottomLogoRendered}"
      [@rotateInUpLeft]="isBottomLogoRendered"/>
