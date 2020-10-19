@@ -3,7 +3,7 @@
   animation-iteration-count: 1;
 }
 
-.periodic-hesitation{
+.periodic-hesitation {
   animation: .2s ease-in-out alternate periodic;
   animation-iteration-count: 2;
   animation-delay: 0.5s;
