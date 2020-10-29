@@ -6,7 +6,10 @@ import { catchError, tap }                                                      
   selector: 'app-request-wrapper',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './request-wrapper.component.html',
-  styles: [`:host::ng-deep.ant-result-subtitle { word-break: break-word }`]
+  styles: [`
+    :host::ng-deep.ant-result-subtitle { word-break: break-word }
+    :host { width: 100% }
+  `]
 })
 export class RequestWrapperComponent<T = any> implements OnChanges {
 

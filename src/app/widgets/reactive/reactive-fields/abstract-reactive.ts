@@ -55,6 +55,8 @@ export abstract class AbstractReactive
    */
   @Input() noMarginBottom: boolean;
 
+  @Input() noValidation: boolean;
+
   @Output() valueChange = new EventEmitter();
 
   validationErrors: object;

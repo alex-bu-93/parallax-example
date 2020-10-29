@@ -55,11 +55,11 @@ const BOTTOM_ITEMS = [
 export class AppComponent implements AfterViewInit {
 
   tabs = Tabs;
-  selectedIndex = this.appService.isLoggedIn ? Tabs.Scopes : Tabs.Welcome;
+  selectedIndex = Tabs.Scopes;
 
   fg = new FormGroup({
     login: new FormControl(null, Validators.required),
-    password: new FormControl('')
+    password: new FormControl('', Validators.required)
   });
 
   login$ = of({});

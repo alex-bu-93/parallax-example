@@ -24,14 +24,14 @@
   <div data-depth="0.7">
     <div style="position: relative; width: 100vw; height: 100vh" class="d-flex">
       <div style="height: 50%" class="mt-auto position-relative w-100">
-          <img *ngFor="let item of bottomItems"
-               class="position-absolute"
-               width="50"
-               [ngClass]="{'d-none': !item.isRendered}"
-               [@bounceInUp]="item.isRendered"
-               [src]="'../assets/bottom-items/' + item.type + '.png'"
-               [alt]="item.type"
-               [ngStyle]="{'bottom': item.bottom, left: item.left}"/>
+        <img *ngFor="let item of bottomItems"
+             class="position-absolute"
+             width="50"
+             [ngClass]="{'d-none': !item.isRendered}"
+             [@bounceInUp]="item.isRendered"
+             [src]="'../assets/bottom-items/' + item.type + '.png'"
+             [alt]="item.type"
+             [ngStyle]="{'bottom': item.bottom, left: item.left}"/>
       </div>
     </div>
   </div>
@@ -88,50 +88,68 @@
   </div>
   <div *ngSwitchCase="tabs.Login" class="d-flex justify-content-center">
     <app-request-wrapper [request$]="login$">
-      <nz-card style="width:350px" class="border-dark rounded">
-        <app-reactive-input fieldId="login" label="Login"
-                            [control]="fg.get('login')">
-        </app-reactive-input>
-        <app-reactive-input fieldId="password" label="Password"
-                            type="password"
-                            [control]="fg.get('password')">
-        </app-reactive-input>
-        <div class="d-flex justify-content-center">
-          <button nz-button
-                  nzType="primary"
-                  nzShape="round"
-                  style="width: 200px"
-                  (click)="onSubmit()"> Sign in
-          </button>
+      <nz-card style="width:320px" class="border-0">
+        <h5 class="text-center font-weight-bold mb-4">Sign in</h5>
+        <div class="mb-2">
+          <app-reactive-input fieldId="login"
+                              placeholder="Enter your MSK login"
+                              [noValidation]="true"
+                              [noMarginBottom]="true"
+                              [control]="fg.get('login')">
+          </app-reactive-input>
         </div>
+        <div class="mb-3">
+          <app-reactive-input fieldId="password"
+                              placeholder="Password"
+                              class="mb-4"
+                              type="password"
+                              [noValidation]="true"
+                              [noMarginBottom]="true"
+                              [control]="fg.get('password')">
+          </app-reactive-input>
+        </div>
+        <button nz-button
+                nzType="primary"
+                class="w-100"
+                (click)="onSubmit()"> Sign in
+        </button>
       </nz-card>
     </app-request-wrapper>
   </div>
   <div *ngSwitchCase="tabs.Scopes" class="d-flex justify-content-center">
-    <ng-template nz-tab>
-      <app-request-wrapper #scopesResponse [request$]="scopes$">
-        <div class="d-flex justify-content-center">
-          <div *ngIf="scopesResponse.data?.length else noInfoTmp"
-               class="d-flex flex-row flex-nowrap">
-            <nz-card *ngFor="let item of scopesResponse.data"
-                     style="width: 300px"
-                     class="mx-2"
-                     [nzActions]="[navigationActionTmp]">
-              <nz-card-meta [nzTitle]="item['applicationName']"
-                            [nzDescription]="item['applicationDescription']"
-                            [nzAvatar]="avatarTemplate">
-              </nz-card-meta>
-              <ng-template #avatarTemplate>
-                <nz-avatar [nzText]="item['applicationName'] | acronym"></nz-avatar>
-              </ng-template>
-              <ng-template #navigationActionTmp>
-                <a [href]="item['applicationPath']">Go to</a>
-              </ng-template>
-            </nz-card>
-          </div>
+    <app-request-wrapper #scopesResponse [request$]="scopes$">
+      <div class="d-flex justify-content-center">
+        <div *ngIf="scopesResponse.data?.length else noInfoTmp"
+             style="max-width: 830px; min-width: 200px"
+             class="d-flex justfy-content-center flex-wrap">
+          <nz-card *ngFor="let item of scopesResponse.data"
+                   style="width: 190px; min-width: 190px; height: 280px; cursor: pointer"
+                   class="robot-card d-flex flex-column mx-2 mb-2">
+            <div class="h-25">
+              <div class="logo-container" [ngStyle]="{'background-color': item['theme']['bgColor']}">
+                <i nz-icon
+                   nzTheme="twotone"
+                   [nzType]="item['theme']['icon']"
+                   [nzTwotoneColor]="item['theme']['iconColor']">
+                </i>
+              </div>
+            </div>
+            <div class="h-50">
+              <img src="assets/robot-card/mini-graph.png"
+                   alt="robot-image"
+                   class="image"/>
+            </div>
+            <div class="h-25 mt-auto">
+              <h5 class="font-weight-bold">Name Robot</h5>
+              <p class="text-muted">
+                Go to the robot
+                <i nz-icon nzType="arrow-right" class="ml-2"></i>
+              </p>
+            </div>
+          </nz-card>
         </div>
-      </app-request-wrapper>
-    </ng-template>
+      </div>
+    </app-request-wrapper>
   </div>
 </div>
 <img alt="logo-right"

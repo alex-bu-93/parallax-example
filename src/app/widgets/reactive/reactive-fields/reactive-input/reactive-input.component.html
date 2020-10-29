@@ -1,12 +1,12 @@
-<div *ngIf="control" class="mb-3 position-relative" [ngClass]="{'mb-0': noMarginBottom}">
+<div *ngIf="control" class="position-relative" [ngClass]="{'mb-0': noMarginBottom, 'mb-3': !noMarginBottom}">
   <app-reactive-label *ngIf="label"
                       [label]="label"
                       [fieldId]="fieldId"
                       [tooltip]="tooltip"
                       [hasRequiredIndicator]="hasRequiredIndicator">
   </app-reactive-label>
-  <nz-form-item>
-    <nz-form-control [nzValidateStatus]="validationErrors ? 'error' : null">
+  <nz-form-item class="mb-0">
+    <nz-form-control [nzValidateStatus]="!noValidation && validationErrors ? 'error' : null">
       <input nz-input
              [id]="fieldId"
              [formControl]="control"
@@ -18,5 +18,5 @@
       />
     </nz-form-control>
   </nz-form-item>
-  <app-validation-message [validationErrors]="validationErrors"></app-validation-message>
+  <app-validation-message *ngIf="!noValidation" [validationErrors]="validationErrors"></app-validation-message>
 </div>
