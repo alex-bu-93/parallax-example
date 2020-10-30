@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { AbstractReactive } from '../abstract-reactive';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AbstractReactive }                       from '../abstract-reactive';
 
 @Component({
   selector: 'app-reactive-input',
@@ -16,4 +16,6 @@ export class ReactiveInputComponent extends AbstractReactive {
   @Input() onInputPipe: 'card-number';
 
   @Input() type = 'text';
+
+  @Output() enterPress = new EventEmitter();
 }

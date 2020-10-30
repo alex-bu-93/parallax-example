@@ -27,14 +27,16 @@ export class AppService {
   }
 
   login(fg: LoginFg) {
-    return this.http.post('/v1/auth/Login', fg).pipe(
-      tap(res => res && sessionStorage.setItem('token', res['token']))
-    );
+    return of({});
+    // return this.http.post('/v1/auth/Login', fg).pipe(
+    //   tap(res => res && sessionStorage.setItem('token', res['token']))
+    // );
   }
 
   getScopes() {
     const shuffledIndexes = shuffle(FAKE_ROBOTS.map((x, i) => i));
     FAKE_ROBOTS.forEach((x, i) => x['theme'] = THEMES[shuffledIndexes[i]]);
+    console.log(FAKE_ROBOTS);
     return of(FAKE_ROBOTS);
   }
 

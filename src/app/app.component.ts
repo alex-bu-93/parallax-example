@@ -1,10 +1,24 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { FormControl, FormGroup, Validators }                                   from '@angular/forms';
-import {bounceInUpAnimation, fadeInUpAnimation, fadeOutUpAnimation, rotateInUpLeftAnimation} from 'angular-animations';
-import Parallax                                                                 from 'parallax-js';
-import { of }                                                                   from 'rxjs';
-import { tap }                                                                  from 'rxjs/operators';
-import { AppService }                                                           from './app.service';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  OnDestroy
+}                                             from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { markTouchedAndScroll }               from '@widgets/reactive/reactive-funcs';
+import { HttpErrorResponse }                  from '@angular/common/http';
+import {
+  bounceInUpAnimation,
+  fadeInUpAnimation,
+  fadeOutUpAnimation,
+  rotateInUpLeftAnimation
+}                                             from 'angular-animations';
+import Parallax                               from 'parallax-js';
+import { of, ReplaySubject }                  from 'rxjs';
+import { catchError, filter, takeUntil, tap } from 'rxjs/operators';
+import { AppService }                         from './app.service';
 
 enum Tabs {
   Welcome = 0,
@@ -42,7 +56,7 @@ const BOTTOM_ITEMS = [
 
 @Component({
   selector: 'app-root',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [
@@ -52,10 +66,12 @@ const BOTTOM_ITEMS = [
     rotateInUpLeftAnimation({degrees: 200})
   ]
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnDestroy {
 
   tabs = Tabs;
-  selectedIndex = Tabs.Scopes;
+  selectedIndex = this.appService.isLoggedIn ? Tabs.Scopes : Tabs.Welcome;
+
+  destroy = new ReplaySubject(1);
 
   fg = new FormGroup({
     login: new FormControl(null, Validators.required),
@@ -67,6 +83,7 @@ export class AppComponent implements AfterViewInit {
 
   candles = CANDLES;
   bottomItems = BOTTOM_ITEMS;
+  error: string;
 
   isSwitchingTab = false;
   isHeaderRendered: boolean;
@@ -80,6 +97,9 @@ export class AppComponent implements AfterViewInit {
     private appService: AppService,
     private cdr: ChangeDetectorRef
   ) {
+    this.fg.valueChanges
+      .pipe(filter(() => !!this.error), takeUntil(this.destroy))
+      .subscribe(() => this.error = null);
     setTimeout(() => { this.isSloganRendered = true; this.cdr.markForCheck(); }, 100);
     setTimeout(() => {
       setTimeout(() => { this.is1WaveRendered = true; this.cdr.markForCheck(); }, 200);
@@ -104,10 +124,15 @@ export class AppComponent implements AfterViewInit {
     if (this.fg.valid) {
       this.login$ = this.appService.login(this.fg.value).pipe(
         tap(() => this.selectedIndex = Tabs.Scopes),
-        tap(() => this.scopes$ = this.appService.getScopes())
+        tap(() => this.scopes$ = this.appService.getScopes()),
+        tap(() => this.cdr.markForCheck()),
+        catchError((err: HttpErrorResponse) => {
+          this.error = `That's an incorrect email or password`;
+          return of({});
+        })
       );
     } else {
-      this.fg.markAllAsTouched();
+      markTouchedAndScroll(this.fg);
     }
   }
 
@@ -136,5 +161,10 @@ export class AppComponent implements AfterViewInit {
         this.login$ = of({});
         break;
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy.next(1);
+    this.destroy.complete();
   }
 }

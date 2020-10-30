@@ -6,7 +6,7 @@
                       [hasRequiredIndicator]="hasRequiredIndicator">
   </app-reactive-label>
   <nz-form-item class="mb-0">
-    <nz-form-control [nzValidateStatus]="!noValidation && validationErrors ? 'error' : null">
+    <nz-form-control [nzValidateStatus]="validationErrors ? 'error' : null">
       <input nz-input
              [id]="fieldId"
              [formControl]="control"
@@ -15,7 +15,7 @@
              [onInputDirective]="onInputDirective"
              [value]="control.value"
              [maxLength]="maxLength || 500000"
-      />
+             (keydown.enter)="enterPress.emit($event)"/>
     </nz-form-control>
   </nz-form-item>
   <app-validation-message *ngIf="!noValidation" [validationErrors]="validationErrors"></app-validation-message>

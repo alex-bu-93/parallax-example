@@ -3,16 +3,16 @@
     <ng-container *ngIf="is1WaveRendered">
       <div class="periodic-hesitation"></div>
       <div class="bottom-top">
-        <div style="position: relative; width: 100vw; height: 100vh">
+        <div style="position: fixed; width: 100vw; height: 100vh;">
           <img alt="wave-back"
-               style="position: absolute; bottom: -70px; width: 120%; left: -10%"
+               style="position: absolute; bottom: 0; width: 120%; left: -10%"
                src="../assets/wave-back.svg"/>
         </div>
       </div>
     </ng-container>
   </div>
   <div data-depth="0.6">
-    <div *ngIf="is3waveRendered" style="position: relative; width: 100vw; height: 100vh">
+    <div *ngIf="is3waveRendered" style="position: fixed; width: 100vw; height: 100vh">
       <div class="periodic-hesitation"></div>
       <div class="bottom-top">
         <img alt=""
@@ -39,7 +39,7 @@
     <ng-container *ngIf="is2WaveRendered">
       <div class="periodic-hesitation"></div>
       <div class="bottom-top">
-        <div style="position: relative; width: 100vw; height: 100vh">
+        <div style="position: fixed; width: 100vw; height: 100vh">
           <img alt="wave-line"
                style="position: absolute; bottom: -70px; left: -10%; width: 110%"
                src="../assets/wave-line.svg"/>
@@ -60,8 +60,9 @@
           (click)="onSwitchTab()"> {{selectedIndex ? 'Back' : 'Sign in'}}
   </button>
 </div>
-<div style="top: 25vh; height: 500px" class="position-fixed w-100" [ngSwitch]="selectedIndex">
+<div style="top: 15vh; height: 500px" class="position-fixed w-100" [ngSwitch]="selectedIndex">
   <div *ngSwitchCase="tabs.Welcome"
+       style="margin-top: 80px"
        class="d-flex justify-content-around"
        [@fadeOutUp]="isSwitchingTab">
     <div [ngClass]="{'d-none': !isSloganRendered}"
@@ -88,31 +89,39 @@
   </div>
   <div *ngSwitchCase="tabs.Login" class="d-flex justify-content-center">
     <app-request-wrapper [request$]="login$">
-      <nz-card style="width:320px" class="border-0">
+      <nz-card style="width:320px; background: initial" class="border-0 mx-auto">
         <h5 class="text-center font-weight-bold mb-4">Sign in</h5>
-        <div class="mb-2">
-          <app-reactive-input fieldId="login"
-                              placeholder="Enter your MSK login"
-                              [noValidation]="true"
-                              [noMarginBottom]="true"
-                              [control]="fg.get('login')">
-          </app-reactive-input>
-        </div>
-        <div class="mb-3">
-          <app-reactive-input fieldId="password"
-                              placeholder="Password"
-                              class="mb-4"
-                              type="password"
-                              [noValidation]="true"
-                              [noMarginBottom]="true"
-                              [control]="fg.get('password')">
-          </app-reactive-input>
-        </div>
+        <form autocomplete="off">
+          <div class="mb-2">
+            <app-reactive-input fieldId="login"
+                                placeholder="Enter your MSK login"
+                                [noValidation]="true"
+                                [noMarginBottom]="true"
+                                [control]="fg.get('login')"
+                                (enterPress)="onSubmit()">
+            </app-reactive-input>
+          </div>
+          <div class="mb-3">
+            <app-reactive-input fieldId="password"
+                                placeholder="Password"
+                                class="mb-4"
+                                type="password"
+                                [noValidation]="true"
+                                [noMarginBottom]="true"
+                                [control]="fg.get('password')"
+                                (enterPress)="onSubmit()">
+            </app-reactive-input>
+          </div>
+        </form>
         <button nz-button
                 nzType="primary"
-                class="w-100"
+                class="w-100 mb-2"
                 (click)="onSubmit()"> Sign in
         </button>
+        <p *ngIf="error" style="color: red"
+           class="animated fadeIn text-center">
+          <i nz-icon nzType="warning" nzTheme="fill"></i> {{error}}
+        </p>
       </nz-card>
     </app-request-wrapper>
   </div>
@@ -121,7 +130,7 @@
       <div class="d-flex justify-content-center">
         <div *ngIf="scopesResponse.data?.length else noInfoTmp"
              style="max-width: 830px; min-width: 200px"
-             class="d-flex justfy-content-center flex-wrap">
+             class="d-flex justify-content-center flex-wrap">
           <nz-card *ngFor="let item of scopesResponse.data"
                    style="width: 190px; min-width: 190px; height: 280px; cursor: pointer"
                    class="robot-card d-flex flex-column mx-2 mb-2">
@@ -135,9 +144,9 @@
               </div>
             </div>
             <div class="h-50">
-              <img src="assets/robot-card/mini-graph.png"
-                   alt="robot-image"
-                   class="image"/>
+              <img alt="robot-image"
+                   class="image"
+                   [src]="'assets/robot-card/' + item['theme']['icon'] + '.svg'"/>
             </div>
             <div class="h-25 mt-auto">
               <h5 class="font-weight-bold">Name Robot</h5>
@@ -153,9 +162,9 @@
   </div>
 </div>
 <img alt="logo-right"
-     src="../assets/logo-right.svg"
+     src="assets/logo-right.svg"
      width="360"
-     style="bottom: -180px; right: -180px"
+     style="bottom: -80px; right: -80px"
      class="position-fixed"
      [ngClass]="{'d-none': !isBottomLogoRendered}"
      [@rotateInUpLeft]="isBottomLogoRendered"/>
